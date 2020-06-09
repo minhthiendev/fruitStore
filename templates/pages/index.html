@@ -1,0 +1,191 @@
+{% extends 'base.html' %} {% load static %} {% block content%}
+<div class="carousel-inner">
+  <img class="d-block w-100" src="https://i.postimg.cc/bNQp0RDW/1.jpg" alt="First slide" />
+  <div class="carousel-caption d-none d-md-block">
+    <h4>GIAO TẬN TAY NGƯỜI DÙNG</h4>
+    <h2>THỰC PHẨM ORGANIC</h2>
+    <p>Chúng tôi cung cấp các sản phẩm hữu cơ chất lượng cao</p>
+    <a href='/store' class="btn buy-now">Mua ngay</a>
+  </div>
+</div>
+<section class="search-sec">
+  <div class="container">
+    <form action="#" method="post" novalidate="novalidate">
+      <div class="row">
+        {% if fruits is not None%}
+        {% for fruit in fruits %}
+        <div class="col-lg-2 col-md-2 col-sm-2 col-4 p-0">
+          <div class="main-fruit">
+            <img class="card-img-top" src="{{ fruit.images.first }}" alt="{{ fruit.title }}"
+              style="width:75%; height:90px;" />
+            <p>{{fruit.price}}</p>
+          </div>
+        </div>
+        {% endfor %}
+
+        {% else%}
+        <h1 class="py-5 text-center"> no fruit in my store</h1>
+
+
+        {% endif %}
+      </div>
+    </form>
+  </div>
+</section>
+
+<section class="introduce-goods">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-md-6 col-sm-12">
+        <div class="img-banner">
+          <img src="http://mauweb.monamedia.net/vuonrau/wp-content/uploads/2019/05/banner-img2.png" alt="" />
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-sm-12">
+        <div class="img-banner">
+          <img src="http://mauweb.monamedia.net/vuonrau/wp-content/uploads/2019/05/banner-img2.png" alt="" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="best-seller">
+  <div class="container text-center py-4">
+
+    <h1 class="py-5 text-center">Selling Products</h1>
+
+
+    <!--First slide-->
+
+    <div class="row">
+      <!-- ------------------------ -->
+      {% if fruits is not None%}
+      {% for fruit in fruits %}
+      <div class="col-md-3 px-1 py-1">
+        <div class="card border-bottom py-2">
+          <img class="card-img-top" src="{{ fruit.images.first }}" alt="{{ fruit.title }}"
+            style=" width:72%; height:200px; margin:0 auto;" />
+          <div class="card-body">
+            <h4 class="card-title">{{fruit.title}}</h4>
+            <p>{{fruit.price}}</p>
+            <a href="{% url 'addToCart' fruit.id %}"><i class="fas fa-cart-plus"></i></a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+      {% else%}
+      <h1 class="py-5 text-center"> no fruit in my store</h1>
+      {% endif %}
+      <div class="col-md-12 py-3"><a class="text-success" href="/store">
+          <h5 class="text-center">see more...</h5>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="banner-discount">
+  <div class="row">
+    <div class="col-md-12 text-center py-4">
+      <h4>CƠ HỘI SĂN ĐƯỢC GIÁ TỐT NHẤT TUẦN</h4>
+      <h2>ĐANG KHUYẾN MÃI</h2>
+      <p>
+        Từ trang trại của chúng tôi ngay trước cửa nhà bạn.
+      </p>
+    </div>
+    <div class="time-to-discount col-md-12 py-2">
+      <div class="container">
+        <form action action="#" method="post" novalidate="novalidate">
+          <div class="btn-discount-time">
+            <button disabled>0<span>Gio</span></button>
+            <button disabled>0<span>Phut</span></button>
+            <button disabled>0<span>Giay</span></button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        {% if fruits is not None%}
+        {% for fruit in fruits %}
+        <div class="col-md-2 px-1" style="width: 300;">
+          <div class="card border-bottom py-2">
+            <img class="card-img-top" src="{{ fruit.images.first }}" alt="{{ fruit.title }}"
+              style=" width:72%; height:100px; margin:0 auto;" />
+            <div class="card-body">
+              <h4 class="card-title">{{fruit.title}}</h4>
+              <p>{{fruit.price}}</p>
+              <a href="{% url 'addToCart' fruit.id %}"><i class="fas fa-cart-plus"></i></a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+        {% else%}
+        <h1 class="py-5 text-center"> no fruit in my store</h1>
+        {% endif %}
+      </div>
+      <div class="col-md-12 px-0 mx-0 py-3"><a class="text-success" href="/store">
+          <h5 class="text-center">see more...</h5>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="news py-5">
+  <div class="container">
+    <div class="text-center">
+      <h1>TIN TỨC</h1>
+    </div>
+
+    <div class="row mt-5">
+      <div class="col-12 col-md-4 col-xs-4 col-sm-12">
+        <div class="card mb-2">
+          <img src="" alt="" />
+
+          <div class="card-body">
+            <h4 class="card-title">Nam van chi co tac dung gi?</h4>
+            <p id="p-date">16 thang 5 nam 2020</p>
+            <hr style="width: 50px;" />
+            <p>
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugit
+              numquam sed, sit ?
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-4 col-xs-4 col-sm-12">
+        <div class="card mb-2">
+          <img src="" alt="" />
+
+          <div class="card-body">
+            <h4 class="card-title">Nam van chi co tac dung gi?</h4>
+            <p id="p-date">16 thang 5 nam 2020</p>
+            <hr style="width: 50px;" />
+            <p>
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugit
+              numquam sed, sit ?
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-4 col-xs-4 col-sm-12">
+        <div class="card mb-2">
+          <img src="" alt="" />
+
+          <div class="card-body">
+            <h4 class="card-title">Nam van chi co tac dung gi?</h4>
+            <p id="p-date">16 thang 5 nam 2020</p>
+            <hr style="width: 50px;" />
+            <p>
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugit
+              numquam sed, sit ?
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
