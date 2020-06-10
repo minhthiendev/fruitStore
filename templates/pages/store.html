@@ -1,75 +1,78 @@
 {% extends 'base.html' %} {% load static %} {% block content%}
-<section class="title-contain">
-    <nav aria-label="breadcrumb">
+{% if fruits %}
+<section class="">
+    <nav aria-label="breadcrumb ">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Store</li>
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">store</li>
         </ol>
     </nav>
 </section>
-<div class="container">
+<div class="container py-5">
     <div class="row">
         <div class="col-md-12 px-1">
-            <div class="col-md-3 p-0">
-                <form action="" class="form-inline">
+            <div class=" row col-md-3 p-0">
+                <form action="{% url 'filter'  %}" get="" class="form-inline">
                     <div class="input-group" style="width:98%">
-                        <select class="custom-select" id="inputGroupSelect04">
-                            <option selected>Filter.</option>
-                            <option value="1">Less than 30k</option>
-                            <option value="2">From 30k to 50k</option>
-                            <option value="3">Greater 50k</option>
+                        <select class="custom-select" id="inputGroupSelect04" name="filter">
+                            <option class="form-control" selected>Filter...</option>
+                            <option class="form-control" value="1"> Dưới 30000 vnđ</option>
+                            <option class="form-control" value="2"> Từ 30000 vnđ Tới 50000 vnđ</option>
+                            <option class="form-control" value="3"> Trên 50000</option> 
                         </select>
                         <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="button">Filter</button>
+                            <button class="btn btn-outline-secondary" type="submit">Filter</button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
-        <div class="col-md-12">
+
+        <div class="col-md-12" style="padding:unset;">
             <div class="row">
-                {% if fruits is not None%}
                 {% for fruit in fruits %}
-                <div class="col-md-3 px-1">
+                <div class="col-md-3 p-1">
                     <div class="card border-bottom py-2">
                         <img class="card-img-top" src="{{ fruit.images.first }}" alt="{{ fruit.title }}"
                             style="width:100%; height:200px;" />
                         <div class="card-body">
                             <h4 class="card-title">{{fruit.title}}</h4>
                             <p>{{fruit.price}}</p>
-                            <a href=""><i class="fas fa-cart-plus"></i></a>
+                             <a href="{% url 'addToCart' fruit.id %}"><i class="fas fa-cart-plus"></i></a>
                         </div>
                     </div>
                 </div>
                 {% endfor %}
-
-                {% else%}
-                <h1 class="py-5 text-center"> no fruit in my store</h1>
-
-
-                {% endif %}
             </div>
-            <nav aria-label="Page navigation example">
+
+            <div class="row" aria-label="Page navigation example" style="float: right;">
                 <ul class="pagination">
                     <li class="page-item">
                         <a class="page-link" href="#" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
-                            <span class="sr-only">Previous</span>
+                            <span class="sr-only"><i class="fas fa-backward"></i></span>
                         </a>
                     </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link active" href="#">1</a></li>
                     <li class="page-item"><a class="page-link" href="#">2</a></li>
                     <li class="page-item"><a class="page-link" href="#">3</a></li>
                     <li class="page-item">
                         <a class="page-link" href="#" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
-                            <span class="sr-only">Next</span>
+                            <span class="sr-only"><i class="fas fa-forward"></i></span>
                         </a>
                     </li>
                 </ul>
-            </nav>
+            </div>
         </div>
     </div>
 </div>
+{% else %}
+<div class="container">
+    <img src="{% static 'images/search_not_found.jpg' %}" alt="" style="height:500px;width:100%" ; object-fit:center;
+        object-position: center; />
+</div>
+{% endif %}
+
 
 {% endblock %}

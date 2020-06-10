@@ -7,10 +7,7 @@ from django.contrib import messages
 
 def index(request):
     fruits = Fruit.objects.all()[:6]
-    total_fruit = 0
-    if request.session.get('cart'):
-        for x in request.session.get('cart'):
-            total_fruit += int(x['quantity'])
+    total_fruit = len(request.session.get('cart')) or 0
     context = {
         'fruits': fruits,
         'total_fruit': total_fruit,
@@ -20,10 +17,7 @@ def index(request):
 
 
 def contact(request):
-    total_fruit = 0
-    if request.session.get('cart'):
-        for x in request.session.get('cart'):
-            total_fruit += int(x['quantity'])
+    total_fruit = len(request.session.get('cart')) or 0
     context = {
         'loading': True,
         'total_fruit': total_fruit
@@ -33,10 +27,7 @@ def contact(request):
 
 def store(request):
     fruits = Fruit.objects.all()
-    total_fruit = 0
-    if request.session.get('cart'):
-        for x in request.session.get('cart'):
-            total_fruit += int(x['quantity'])
+    total_fruit = len(request.session.get('cart')) or 0
     context = {
         'fruits': fruits,
         'loading': True,
@@ -46,23 +37,21 @@ def store(request):
 
 
 def cart(request):
-    total_fruit = 0
-    if request.session.get('cart'):
-        for x in request.session.get('cart'):
-            total_fruit += int(x['quantity'])
+    total_fruit = len(request.session.get('cart')) or 0
+    total_price = 0
+    for x in request.session.get('cart'):
+        total_price += x['price']*x['quantity']
     context = {
         'loading': True,
         'carts': request.session.get('cart'),
-        'total_fruit': total_fruit
+        'total_fruit': total_fruit,
+        'total_price': total_price
     }
     return render(request, 'pages/cart.html', context)
 
 
 def about(request):
-    total_fruit = 0
-    if request.session.get('cart'):
-        for x in request.session.get('cart'):
-            total_fruit += int(x['quantity'])
+    total_fruit = len(request.session.get('cart')) or 0
     context = {
         'loading': True,
         'total_fruit': total_fruit

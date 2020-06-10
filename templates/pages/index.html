@@ -1,49 +1,26 @@
 {% extends 'base.html' %} {% load static %} {% block content%}
 <div class="carousel-inner">
-  <img class="d-block w-100" src="https://i.postimg.cc/bNQp0RDW/1.jpg" alt="First slide" />
+  <img class="d-block w-100" src="{% static 'images/banner.jpg' %}" alt="First slide" />
   <div class="carousel-caption d-none d-md-block">
     <h4>GIAO TẬN TAY NGƯỜI DÙNG</h4>
     <h2>THỰC PHẨM ORGANIC</h2>
-    <p>Chúng tôi cung cấp các sản phẩm hữu cơ chất lượng cao</p>
+    <p text-light>Chúng tôi cung cấp các sản phẩm hữu cơ chất lượng cao</p>
     <a href='/store' class="btn buy-now">Mua ngay</a>
   </div>
 </div>
-<section class="search-sec">
-  <div class="container">
-    <form action="#" method="post" novalidate="novalidate">
-      <div class="row">
-        {% if fruits is not None%}
-        {% for fruit in fruits %}
-        <div class="col-lg-2 col-md-2 col-sm-2 col-4 p-0">
-          <div class="main-fruit">
-            <img class="card-img-top" src="{{ fruit.images.first }}" alt="{{ fruit.title }}"
-              style="width:75%; height:90px;" />
-            <p>{{fruit.price}}</p>
-          </div>
-        </div>
-        {% endfor %}
 
-        {% else%}
-        <h1 class="py-5 text-center"> no fruit in my store</h1>
-
-
-        {% endif %}
-      </div>
-    </form>
-  </div>
-</section>
 
 <section class="introduce-goods">
   <div class="container">
     <div class="row">
       <div class="col-12 col-md-6 col-sm-12">
         <div class="img-banner">
-          <img src="http://mauweb.monamedia.net/vuonrau/wp-content/uploads/2019/05/banner-img2.png" alt="" />
+          <img src="" alt="" />
         </div>
       </div>
       <div class="col-12 col-md-6 col-sm-12">
         <div class="img-banner">
-          <img src="http://mauweb.monamedia.net/vuonrau/wp-content/uploads/2019/05/banner-img2.png" alt="" />
+          <img src="" alt="" />
         </div>
       </div>
     </div>

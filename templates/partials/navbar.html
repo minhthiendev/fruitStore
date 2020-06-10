@@ -1,5 +1,5 @@
 {% load static %}
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
     <a class="navbar-brand" href="/"><img src="{% static 'images/banana.png' %}" alt="" with="100%" height="40px" /></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -18,16 +18,15 @@
         <li class="nav-item">
           <a class="nav-link" href="/store">Store</a>
         </li>
-
         <li class="nav-item">
           <a class="nav-link" href="/contact">Contact</a>
         </li>
         <li class="nav-item">
           {% if total_fruit > 0 %}
-          <a class="nav-link" href="/cart">Cart <sup
-              style="padding:3px; background:rgb(143, 7, 30) ;border-radius: 100%;">{{total_fruit}}</sup></a>
+          <a class="nav-link" href="/cart"><i class="fas fa-shopping-cart"></i> <sup
+              style="padding:3px; background:rgb(29, 1, 48) ;border-radius: 100%;">{{total_fruit}}</sup></a>
           {% else %}
-          <a class="nav-link" href="/cart">Cart</a>
+          <a class="nav-link" href="/cart"><i class="fas fa-shopping-cart"></i></a>
           {% endif %}
 
         </li>

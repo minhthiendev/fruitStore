@@ -14,7 +14,7 @@ def addToCart(request, id):
     if fruit:
         if cart == []:
             cart.append(
-                {'fruit': fruit.title, 'price': fruit.price, 'quantity': 1})
+                {'fruit': fruit.title, 'price': fruit.price, 'images': str(fruit.images.first), 'quantity': 1})
             request.session['cart'] = cart
             print("----------1----------")
         else:
@@ -27,7 +27,6 @@ def addToCart(request, id):
                 cart.append(
                     {'fruit': fruit.title, 'price': fruit.price, 'quantity': 1})
         request.session['cart'] = cart
-    print("----------5----------", cart)
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
@@ -43,5 +42,27 @@ def search(request):
 
     context = {
         'fruits': result
+    }
+    return render(request, 'pages/store.html', context)
+
+
+def filter(request):
+    x = request.GET.get('filter')
+    fruits = []
+
+    if int(x) == 1:
+        fruits = Fruit.objects.filter(price__lt=30000)
+        print("--------1----------", fruits)
+    elif int(x) == 2:
+        fruits = Fruit.objects.filter(price__gte=30000, price__lte=50000)
+        print("--------2----------", fruits)
+    elif int(x) == 3:
+        fruits = Fruit.objects.filter(price__gt=50000)
+        print("--------3----------", fruits)
+    else:
+        fruits = Fruit.objects.all()
+        print("--------4----------", fruits)
+    context = {
+        'fruits': fruits,
     }
     return render(request, 'pages/store.html', context)

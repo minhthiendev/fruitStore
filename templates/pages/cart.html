@@ -8,7 +8,7 @@
         </ol>
     </nav>
 </section>
-
+{% if carts %}
 <section class="badge mt-5">
     <div class="px-4 px-lg-0  mt-5" style="width: 100%;">
         <div class="pb-5">
@@ -37,16 +37,11 @@
                                 <tbody>
                                     {% for cart in carts %}
                                     <tr>
-                                        <th scope="row" class="border-0">
-                                            <div class="p-2">
-                                                <img src="{{ static 'cart.fruit.images.first' %}"
-                                                    alt="" width="70" class="img-fluid rounded shadow-sm">
-                                                <div class="ml-3 d-inline-block align-middle">
-                                                    <h5 class="mb-0">{{cart.fruit}}</h5>
-                                                </div>
-                                        </th>
+                                        <td scope="row" class="border-0">
+                                            <strong> {{cart.fruit}}</strong>
+                                        </td>
                                         <td class=" border-0 align-middle"><strong>{{cart.price}} vnđ</strong>
-                                                </td>
+                                        </td>
                                         <td class="border-0 align-middle"><strong>{{ cart.quantity}}</strong></td>
                                         <td class="border-0 align-middle"><a href="#" class="text-dark">Xoa</a></td>
                                     </tr>
@@ -60,51 +55,53 @@
 
                 <div class="row py-5 p-4 bg-white rounded shadow-sm">
                     <div class="col-lg-6">
-                        <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Coupon code
+                        <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Thông tin người
+                            nhận hàng
                         </div>
                         <div class="p-4">
-                            <p class="font-italic mb-4">If you have a coupon code, please enter it in the box below
+                            <p class="font-italic mb-4">Nhập chính xác thồng tin để tránh mất hàng nha.
                             </p>
                             <div class="input-group mb-4 border rounded-pill p-2">
-                                <input type="text" placeholder="Apply coupon" aria-describedby="button-addon3"
+                                <input type="text" placeholder="Nhập tên" aria-describedby="button-addon3"
                                     class="form-control border-0">
                             </div>
                             <div class="input-group mb-4 border rounded-pill p-2">
-                                <input type="text" placeholder="Apply coupon" aria-describedby="button-addon3"
+                                <input type="text" placeholder="Nhập số điện thoại" aria-describedby="button-addon3"
                                     class="form-control border-0">
                             </div>
                             <div class="input-group mb-4 border rounded-pill p-2">
-                                <input type="text" placeholder="Apply coupon" aria-describedby="button-addon3"
+                                <input type="text" placeholder="Nhập đia chỉ nhận hàng" aria-describedby="button-addon3"
                                     class="form-control border-0">
                             </div>
                         </div>
 
                     </div>
-                    <div class="col-lg-6">
-                        <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Order summary
+                    <div class="col-md-6">
+                        <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Thông tin đơn hàng
                         </div>
                         <div class="p-4">
-                            <p class="font-italic mb-4">Shipping and additional costs are calculated based on values
-                                you
-                                have entered.</p>
+                            <p class="font-italic mb-4">Ship 10km =15k từ 11km trở lên thêm 1km thêm 3k.
+                                Ship trong nội thành HCM
+                            </p>
                             <ul class="list-unstyled mb-4">
                                 <li class="d-flex justify-content-between py-3 border-bottom"><strong
-                                        class="text-muted">Order Subtotal </strong><strong>$390.00</strong></li>
+                                        class="text-muted">Đơn hàng </strong><strong>{{total_price}}vnđ</strong></li>
                                 <li class="d-flex justify-content-between py-3 border-bottom"><strong
-                                        class="text-muted">Shipping and handling</strong><strong>$10.00</strong>
+                                        class="text-muted">Ship</strong><strong>15.000vnđ</strong>
                                 </li>
                                 <li class="d-flex justify-content-between py-3 border-bottom"><strong
-                                        class="text-muted">Coupon</strong><strong>
-                                        <input type="text" placeholder="Apply coupon" aria-describedby="button-addon3"
-                                            class=" border-0">
+                                        class="text-muted">Mã Khuyến mãi</strong><strong>
+                                        <div class="input-group mb-4 border rounded-pill">
+                                            <input type="text" placeholder="Nhập đia chỉ nhận hàng"
+                                                aria-describedby="button-addon3" class="form-control border-0">
+                                        </div>
                                     </strong></li>
                                 <li class="d-flex justify-content-between py-3 border-bottom"><strong
-                                        class="text-muted">Total</strong>
+                                        class="text-muted">Tổng cộng</strong>
                                     <h5 class="font-weight-bold">$400.00</h5>
                                 </li>
                             </ul>
-                            <a href="#" class="btn btn-dark rounded-pill py-2 btn-block">Procceed to
-                                checkout</a>
+                            <a href="#" class="btn btn-dark rounded-pill py-2 btn-block">Đặt hàng</a>
                         </div>
                     </div>
                 </div>
@@ -113,4 +110,10 @@
         </div>
     </div>
 </section>
+{% else %}
+<div class="container">
+    <img src="{% static 'images/emptyCart.png' %}" alt="" style="width: 50%; height: auto; margin:50px auto;" />
+</div>
+{% endif %}
+
 {% endblock %}

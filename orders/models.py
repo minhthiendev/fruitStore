@@ -6,8 +6,7 @@ from datetime import datetime
 
 
 class Order(models.Model):
-    own = models.ForeignKey(
-        Customer, on_delete=models.CASCADE, related_name='customers_order')
+    name = models.CharField(max_length=255, default='spending')
     fruit = models.ForeignKey(
         Fruit, on_delete=models.CASCADE, related_name='fruits_order')
     kg = models.IntegerField(default=1)
