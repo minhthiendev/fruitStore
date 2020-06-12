@@ -1,14 +1,15 @@
 {% extends 'base.html' %} {% load static %} {% block content%}
+
+
 <div class="carousel-inner">
   <img class="d-block w-100" src="{% static 'images/banner.jpg' %}" alt="First slide" />
   <div class="carousel-caption d-none d-md-block">
     <h4>GIAO TẬN TAY NGƯỜI DÙNG</h4>
-    <h2>THỰC PHẨM ORGANIC</h2>
-    <p text-light>Chúng tôi cung cấp các sản phẩm hữu cơ chất lượng cao</p>
+    <h2>Trái cây Miền Tây</h2>
+    <p class='text-light'>Chúng tôi cung cấp các sản phẩm hữu cơ chất lượng cao</p>
     <a href='/store' class="btn buy-now">Mua ngay</a>
   </div>
 </div>
-
 
 <section class="introduce-goods">
   <div class="container">
@@ -28,24 +29,59 @@
 </section>
 <section class="best-seller">
   <div class="container text-center py-4">
-
     <h1 class="py-5 text-center">Selling Products</h1>
-
-
     <!--First slide-->
-
     <div class="row">
       <!-- ------------------------ -->
       {% if fruits is not None%}
       {% for fruit in fruits %}
-      <div class="col-md-3 px-1 py-1">
+      <div class="col-md-4 p-1" data-toggle="modal" data-target="#fruit{{fruit.id}}">
         <div class="card border-bottom py-2">
           <img class="card-img-top" src="{{ fruit.images.first }}" alt="{{ fruit.title }}"
-            style=" width:72%; height:200px; margin:0 auto;" />
+            style="width:100%; height:200px;" />
           <div class="card-body">
             <h4 class="card-title">{{fruit.title}}</h4>
             <p>{{fruit.price}}</p>
-            <a href="{% url 'addToCart' fruit.id %}"><i class="fas fa-cart-plus"></i></a>
+            {% if fruit.available >= 1 %}
+            <div class="d-flex justify-content-around">
+              <a class="" href="{% url 'addToCart' fruit.id %}"><i class="fas fa-cart-plus"></i></a>
+              <span class="">{{fruit.available}}&nbsp; kg</span>
+            </div>
+            {% else %}
+            <h6><i class="fas fa-store-alt-slash"></i>&nbsp;Hết hàng</h6>
+            {% endif %}
+
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" id="fruit{{fruit.id}}" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">{{fruit.title}}</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <img class="card-img-top" src="{{ fruit.images.first }}" alt="{{ fruit.title }}" style="width:100%; " />
+              <p>{{fruit.price}}</p>
+              {% if fruit.available >= 1 %}
+              <div class="d-flex justify-content-around">
+                <span class="">{{fruit.available}}&nbsp; kg</span>
+              </div>
+              {% else %}
+              <h6><i class="fas fa-store-alt-slash"></i>&nbsp;Hết hàng</h6>
+              {% endif %}
+            </div>
+            <div class="modal-footer">
+              <a type="button" class="btn btn-outline-success" data-dismiss="modal"
+                href="{% url 'addToCart' fruit.id %}">
+                <i class="fas fa-cart-plus"></i></a>
+              <button type="button" class="btn btn-outline-danger" data-dismiss="modal"
+                aria-label="Close">close</button>
+            </div>
           </div>
         </div>
       </div>
@@ -57,27 +93,26 @@
           <h5 class="text-center">see more...</h5>
         </a>
       </div>
-
     </div>
   </div>
 </section>
 
-<section class="banner-discount">
-  <div class="row">
-    <div class="col-md-12 text-center py-4">
+<section class="">
+  <div class="row" style="margin:unset;">
+    <div class=" col-md-12 text-center" style="padding:unset;">
       <h4>CƠ HỘI SĂN ĐƯỢC GIÁ TỐT NHẤT TUẦN</h4>
       <h2>ĐANG KHUYẾN MÃI</h2>
       <p>
         Từ trang trại của chúng tôi ngay trước cửa nhà bạn.
       </p>
     </div>
-    <div class="time-to-discount col-md-12 py-2">
+    <div class=" time-to-discount col-md-12" style="padding:unset;">
       <div class="container">
         <form action action="#" method="post" novalidate="novalidate">
-          <div class="btn-discount-time">
-            <button disabled>0<span>Gio</span></button>
-            <button disabled>0<span>Phut</span></button>
-            <button disabled>0<span>Giay</span></button>
+          <div class="py-2">
+            <button class="btn btn-outline-success" disabled>0<span>Gio</span></button>
+            <button class="btn btn-outline-success" disabled>0<span>Phut</span></button>
+            <button class="btn btn-outline-success" disabled>0<span>Giay</span></button>
           </div>
         </form>
       </div>

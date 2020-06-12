@@ -18,7 +18,7 @@
                             <option class="form-control" selected>Filter...</option>
                             <option class="form-control" value="1"> Dưới 30000 vnđ</option>
                             <option class="form-control" value="2"> Từ 30000 vnđ Tới 50000 vnđ</option>
-                            <option class="form-control" value="3"> Trên 50000</option> 
+                            <option class="form-control" value="3"> Trên 50000</option>
                         </select>
                         <div class="input-group-append">
                             <button class="btn btn-outline-secondary" type="submit">Filter</button>
@@ -28,44 +28,100 @@
             </div>
         </div>
 
+
+        <!-- Button trigger modal -->
+
         <div class="col-md-12" style="padding:unset;">
             <div class="row">
                 {% for fruit in fruits %}
-                <div class="col-md-3 p-1">
+                <div class="col-md-3 p-1" data-toggle="modal" data-target="#fruit{{fruit.id}}">
                     <div class="card border-bottom py-2">
                         <img class="card-img-top" src="{{ fruit.images.first }}" alt="{{ fruit.title }}"
                             style="width:100%; height:200px;" />
                         <div class="card-body">
                             <h4 class="card-title">{{fruit.title}}</h4>
                             <p>{{fruit.price}}</p>
-                             <a href="{% url 'addToCart' fruit.id %}"><i class="fas fa-cart-plus"></i></a>
+                            {% if fruit.available >= 1 %}
+                            <div class="d-flex justify-content-around">
+                                <a class="" href="{% url 'addToCart' fruit.id %}"><i class="fas fa-cart-plus"></i></a>
+                                <span class="">{{fruit.available}}&nbsp; kg</span>
+                            </div>
+                            {% else %}
+                            <h6><i class="fas fa-store-alt-slash"></i>&nbsp;Hết hàng</h6>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="fruit{{fruit.id}}" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">{{fruit.title}}</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <img class="card-img-top" src="{{ fruit.images.first }}" alt="{{ fruit.title }}"
+                                    style="width:100%; " />
+                                <p>{{fruit.price}}</p>
+                                {% if fruit.available >= 1 %}
+                                <div class="d-flex justify-content-around">
+                                    <span class="">{{fruit.available}}&nbsp; kg</span>
+                                </div>
+                                {% else %}
+                                <h6><i class="fas fa-store-alt-slash"></i>&nbsp;Hết hàng</h6>
+                                {% endif %}
+                            </div>
+                            <div class="modal-footer">
+                                {% if fruit.available >= 1 %}
+                                <a type="button" class="btn btn-outline-success" href="{% url 'addToCart' fruit.id %}">
+                                    <i class="fas fa-cart-plus"></i></a>
+                                {% endif %}
+
+                                <a type="button" class="btn btn-outline-danger" data-dismiss="modal"
+                                    aria-label="Close">close</a>
+                            </div>
                         </div>
                     </div>
                 </div>
                 {% endfor %}
             </div>
+        </div>
 
-            <div class="row" aria-label="Page navigation example" style="float: right;">
-                <ul class="pagination">
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                            <span class="sr-only"><i class="fas fa-backward"></i></span>
-                        </a>
-                    </li>
-                    <li class="page-item"><a class="page-link active" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                            <span class="sr-only"><i class="fas fa-forward"></i></span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+        <!-- Modal -->
+        <!-- ---------------------------------------------------------------------------- -->
+        <div class="row" aria-label="Page navigation example" style="float: right;">
+            <ul class="pagination">
+                {% if current_page > 1 %}
+                <li class="page-item">
+                    <a class="page-link" href="/store/?page={{current_page|add:-1}}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only"><i class="fas fa-backward"></i></span>
+                    </a>
+                </li>
+
+                {% endif %}
+
+                {% for x in list_page %}
+                <li class="page-item"><a class="page-link" href="/store/?page={{x}}">{{x}}</a></li>
+                {% endfor %}
+                {% if current_page < max_page %}
+
+                <li class="page-item">
+                    <a class="page-link" href="/store/?page={{current_page|add:1}}" aria-label=" Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only"><i class="fas fa-forward"></i></span>
+                    </a>
+                </li>
+                {% endif %}
+
+            </ul>
         </div>
     </div>
+</div>
 </div>
 {% else %}
 <div class="container">

@@ -6,13 +6,23 @@ from datetime import datetime
 
 
 class Order(models.Model):
-    name = models.CharField(max_length=255, default='spending')
-    fruit = models.ForeignKey(
-        Fruit, on_delete=models.CASCADE, related_name='fruits_order')
-    kg = models.IntegerField(default=1)
-    price = models.FloatField(default=0)
+    name = models.CharField(max_length=255)
+    phone = models.CharField(max_length=10)
+    address = models.CharField(max_length=255)
+    total_price = models.IntegerField()
     date = models.DateTimeField(default=datetime.now)
     status = models.CharField(max_length=255, default='spending')
 
     def __str__(self):
-        return self.own.name
+        return self.name
+
+
+class fruitOfOrder(models.Model):
+    fruit = models.ForeignKey(
+        Fruit, related_name='fruit_order', on_delete=models.CASCADE)
+    order = models.ForeignKey(
+        Order, related_name='order_fruit', on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=1)
+
+    def __str__(self):
+        return self.fruit

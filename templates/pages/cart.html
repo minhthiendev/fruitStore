@@ -21,17 +21,15 @@
                                 <thead>
                                     <tr>
                                         <th scope="col" class="border-0 bg-light">
-                                            <div class="p-2 px-3 text-uppercase">Product</div>
+                                            <div class="p-2 px-3 text-uppercase">Tên</div>
                                         </th>
                                         <th scope="col" class="border-0 bg-light">
-                                            <div class="py-2 text-uppercase">Price</div>
+                                            <div class="py-2 text-uppercase">Giá</div>
                                         </th>
                                         <th scope="col" class="border-0 bg-light">
-                                            <div class="py-2 text-uppercase">Quantity</div>
+                                            <div class="py-2 text-uppercase">Số lượng</div>
                                         </th>
-                                        <th scope="col" class="border-0 bg-light">
-                                            <div class="py-2 text-uppercase"></div>
-                                        </th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -42,8 +40,21 @@
                                         </td>
                                         <td class=" border-0 align-middle"><strong>{{cart.price}} vnđ</strong>
                                         </td>
-                                        <td class="border-0 align-middle"><strong>{{ cart.quantity}}</strong></td>
-                                        <td class="border-0 align-middle"><a href="#" class="text-dark">Xoa</a></td>
+
+                                        <td class="border-0 align-middle text-center ">
+                                            <nav class="Page navigation d-flex justify-content-center">
+                                                <ul class="pagination">
+                                                    <li class="page-item text-center"><a class="page-link text-center"
+                                                            href=""><i class="fas fa-minus"></i></a>
+                                                    </li>
+                                                    <li class="page-item "><a class="page-link text-center"
+                                                            href="#">{{ cart.quantity}} </a></li>
+                                                    <li class="page-item"><a class="page-link"
+                                                            href="{% url 'plus' cart.id %}"><i
+                                                                class="fas fa-plus"></i></a></li>
+                                                </ul>
+                                            </nav>
+                                        </td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>
@@ -53,7 +64,7 @@
                     </div>
                 </div>
 
-                <div class="row py-5 p-4 bg-white rounded shadow-sm">
+                <form class="row py-5 p-4 bg-white rounded shadow-sm" action="/checkout" method="Post">
                     <div class="col-lg-6">
                         <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Thông tin người
                             nhận hàng
@@ -62,16 +73,16 @@
                             <p class="font-italic mb-4">Nhập chính xác thồng tin để tránh mất hàng nha.
                             </p>
                             <div class="input-group mb-4 border rounded-pill p-2">
-                                <input type="text" placeholder="Nhập tên" aria-describedby="button-addon3"
+                                <input type="text" placeholder="Nhập tên" aria-describedby="button-addon3" name="name"
                                     class="form-control border-0">
                             </div>
                             <div class="input-group mb-4 border rounded-pill p-2">
                                 <input type="text" placeholder="Nhập số điện thoại" aria-describedby="button-addon3"
-                                    class="form-control border-0">
+                                    name="phone" class="form-control border-0">
                             </div>
                             <div class="input-group mb-4 border rounded-pill p-2">
                                 <input type="text" placeholder="Nhập đia chỉ nhận hàng" aria-describedby="button-addon3"
-                                    class="form-control border-0">
+                                    name="address" class="form-control border-0">
                             </div>
                         </div>
 
@@ -80,8 +91,8 @@
                         <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Thông tin đơn hàng
                         </div>
                         <div class="p-4">
-                            <p class="font-italic mb-4">Ship 10km =15k từ 11km trở lên thêm 1km thêm 3k.
-                                Ship trong nội thành HCM
+                            <p class="font-italic mb-4">Ship 15k không trả giá ------>
+                                Chỉ ship trong nội thành HCM
                             </p>
                             <ul class="list-unstyled mb-4">
                                 <li class="d-flex justify-content-between py-3 border-bottom"><strong
@@ -92,27 +103,28 @@
                                 <li class="d-flex justify-content-between py-3 border-bottom"><strong
                                         class="text-muted">Mã Khuyến mãi</strong><strong>
                                         <div class="input-group mb-4 border rounded-pill">
-                                            <input type="text" placeholder="Nhập đia chỉ nhận hàng"
+                                            <input type="text" placeholder="Nhập Mã khuyến mãi"
                                                 aria-describedby="button-addon3" class="form-control border-0">
                                         </div>
                                     </strong></li>
                                 <li class="d-flex justify-content-between py-3 border-bottom"><strong
                                         class="text-muted">Tổng cộng</strong>
-                                    <h5 class="font-weight-bold">$400.00</h5>
+                                    <h5 class="font-weight-bold">{{total_price|add:15000}} vnđ</h5>
                                 </li>
                             </ul>
-                            <a href="#" class="btn btn-dark rounded-pill py-2 btn-block">Đặt hàng</a>
+                            <button type="submit" class="btn btn-dark rounded-pill py-2 btn-block border-0">Đặt
+                                hàng</button>
                         </div>
                     </div>
-                </div>
-
             </div>
+
         </div>
+    </div>
     </div>
 </section>
 {% else %}
-<div class="container">
-    <img src="{% static 'images/emptyCart.png' %}" alt="" style="width: 50%; height: auto; margin:50px auto;" />
+<div class="container d-flex justify-content-center">
+    <img src="{% static 'images/emptyCart.png' %}" alt="" style=" margin:50px auto;" />
 </div>
 {% endif %}
 

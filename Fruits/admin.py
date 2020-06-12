@@ -17,7 +17,7 @@ class FruitImageInline(admin.StackedInline):
 class FruitAdmin(admin.ModelAdmin):
     inlines = [FruitImageInline, ]
 
-    list_display = ('id', 'title')
+    list_display = ('id', 'title', 'available')
     list_display_links = ('id', 'title')
     list_per_page = 25
 
